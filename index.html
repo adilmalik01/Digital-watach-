@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #083d1f, #30197d);
+        }
+
+        .container {
+            width: 600px;
+            height: 200px;
+            background-color: rgba(235, 0, 255, 0.116);
+            position: relative;
+            z-index: 100;
+        }
+
+        .container::before {
+            content: '';
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+            background-color: rgba(23, 112, 255, 0.7);
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            z-index: -1;
+        }
+
+        .container::after {
+            content: '';
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: #99f23f;
+            position: absolute;
+            right: -30px;
+            bottom: -30px;
+        }
+
+        .timer-display-div {
+            z-index: 99;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(40px);
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hours::after {
+            content: "Hours";
+            position: absolute;
+            bottom: 20px;
+            font-size: 19px;
+        }
+
+        .minutes::after {
+            content: "Minutes";
+            position: absolute;
+            bottom: 20px;
+            font-size: 19px;
+        }
+
+        .sec::after {
+            content: "Seconds";
+            position: absolute;
+            bottom: 20px;
+            font-size: 19px;
+        }
+
+        h1 {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            flex: 1;
+        }
+          
+        @media (max-width:700px) {
+            .container::before{
+                left: 20px;
+                top: 0;
+            }
+            .container::after{
+                right: 20px;
+                bottom: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+
+
+        <div class="container">
+
+            <div class="timer-display-div">
+                <div class="timer">
+                    <h1 class="hours">00</h1>
+                    <h1 class="minutes">00</h1>
+                    <h1 class="sec">00</h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script type="module">
+        let hor = document.querySelector(".hours")
+        let secc = document.querySelector(".sec")
+        let minutes = document.querySelector(".minutes")
+
+        const dateFunction = () => {
+
+            let date = new Date()
+            let time = date.getHours()
+            hor.innerHTML = time
+            if (time > 12) {
+                console.log('PM');
+            } else {
+                console.log('AM');
+            }
+
+
+            let sec = date.getSeconds()
+            secc.innerHTML = sec
+            if (sec < 10) {
+                secc.innerHTML = `0${sec}`
+            } else {
+                secc.innerHTML = sec
+            }
+
+
+            let min = date.getMinutes()
+            if (min < 10) {
+                minutes.innerHTML = `0${min}`
+            } else {
+                minutes.innerHTML = min
+            }
+        }
+        setInterval(() => {
+            dateFunction()
+        }, 1000)
+    </script>
+
+</body>
+
+</html>
